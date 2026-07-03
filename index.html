@@ -5,119 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Alguien Especial 🌸</title>
     <style>
-        /* Estilos CSS Base (Adaptados de la imagen para diseño responsive) */
         *, *::after, *::before {
             padding: 0;
             margin: 0;
-            box-sizing: border-box; /* cite: 5 */
+            box-sizing: border-box;
         }
 
         :root {
-            --dark-color: #000; /* cite: 5 */
+            --color-bg: #000000;
+            --color-glass: #111;
+            --color-water: #052222;
         }
 
         body {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start; /* Alineación para dejar espacio al mensaje abajo */
+            background-color: var(--color-bg);
             min-height: 100vh;
-            background-color: var(--dark-color); /* cite: 5 */
-            overflow: hidden; /* cite: 5 */
-            flex-direction: column; /* Para colocar las flores sobre el mensaje */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1000px;
             padding: 20px;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* Contenedor de las flores mágicas (adaptado para pantalla de celular) */
-        .flower {
-            width: 80%; /* Ocupa el 80% del ancho para no estar tan solo */
-            height: 40vh; /* Ocupa el 40% de la altura de la pantalla */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative; /* cite: 5 */
-            margin: 0 auto; /* Centrado horizontal */
-        }
-
-        /* Estilos detallados para recrear las flores brillantes de la imagen (adaptado para que sea interactivo) */
-        .flower__leafs {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Contenedor del Mundo Nocturno y las Flores */
+        .night {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            position: absolute; /* cite: 5 */
-            bottom: 0; /* cite: 5 */
-            transform-origin: bottom center; /* cite: 5 */
-            animation: flower__bloom-first 5s 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            opacity: 0;
+            background: radial-gradient(circle at center, #012 0%, #000 100%);
+            z-index: 1;
         }
 
-        /* Estos estilos están adaptados para recrear la complejidad de los pétalos brillantes y detallados de la imagen, con degradados cian y bordes brillantes. No son los tulipanes simples que habíamos planeado. */
+        .flowers {
+            position: relative;
+            transform: scale(0.75);
+            height: 60vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        /* Estructura de la Flor Principal */
+        .flower {
+            position: relative;
+        }
+
+        .flower__leafs {
+            animation: bloom 3s 1s ease-in-out forwards;
+            opacity: 0;
+            position: relative;
+            transform: translateY(50px);
+        }
+
+        /* El Tallo */
+        .flower__line {
+            width: 6px;
+            height: 280px;
+            background-image: linear-gradient(to top, rgba(0, 0, 0, 0), #154734, #00ffff);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        /* Los Pétalos Mágicos Cian */
         .flower__leaf {
-            width: 15%; /* Ajuste de tamaño para 3 flores como en la imagen */
-            height: 100%;
-            background: linear-gradient(135deg, #00ffff, #008080); /* Degradado cian brillante */
-            position: absolute; /* cite: 5 */
-            bottom: 0; /* cite: 5 */
-            border-radius: 50% 50% 0 0; /* Forma de pétalo */
-            transform-origin: bottom center; /* cite: 5 */
-            opacity: 0;
-            animation: flower__bloom 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            filter: drop-shadow(0 0 10px #00ffff); /* Brillo externo */
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ccffff, #00ffff 60%, #008080);
+            border-radius: 50% 0 50% 50%;
+            transform-origin: bottom center;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.8));
+            opacity: 0.9;
         }
 
-        /* Delays para que las 3 flores principales broten en orden */
-        .flower__leaf--1 { animation-delay: 1.2s; left: 10%; }
-        .flower__leaf--2 { animation-delay: 1.4s; left: 42.5%; }
-        .flower__leaf--3 { animation-delay: 1.6s; left: 75%; }
+        /* Distribución de pétalos para formar la flor abierta */
+        .flower__leaf--1 { transform: translateX(-50%) rotate(0deg); }
+        .flower__leaf--2 { transform: translateX(-50%) rotate(45deg); }
+        .flower__leaf--3 { transform: translateX(-50%) rotate(-45deg); }
+        .flower__leaf--4 { transform: translateX(-50%) rotate(90deg); }
+        .flower__leaf--5 { transform: translateX(-50%) rotate(-90deg); }
+        .flower__leaf--6 { transform: translateX(-50%) rotate(135deg); }
+        .flower__leaf--7 { transform: translateX(-50%) rotate(-135deg); }
+        .flower__leaf--8 { transform: translateX(-50%) rotate(180deg); }
 
-        /* Estilos detallados para recrear los tallos brillantes y curvados de la imagen, que son más complejos que un simple tallo verde. */
-        .flower__leafs::after {
-            content: '';
-            width: 6px; /* Tallo más visible */
-            height: 100%;
-            background-color: #1a1a1a;
-            position: absolute; /* cite: 5 */
-            left: 50%; /* Tallo central */
-            transform: translateX(-50%); /* cite: 5 */
+        /* Hojas del tallo */
+        .flower__light {
+            position: absolute;
+            bottom: 80px;
+            left: -30px;
+            width: 30px;
+            height: 15px;
+            background: #00ffff;
+            filter: blur(5px);
+            opacity: 0.4;
+        }
+
+        /* Multiplicación de flores (Izquierda y Derecha) */
+        .flower--2 {
+            transform: translateX(-60px) rotate(-15deg) scale(0.8);
+            position: absolute;
+            left: -50px;
             bottom: 0;
-            border-radius: 3px;
+        }
+        .flower--2 .flower__leaf {
+            background: radial-gradient(circle, #e6ffff, #33ffff 60%, #006666);
         }
 
-        /* Estilos para las hojas pequeñas y detalladas que acompañan a cada flor, adaptadas para que sean más realistas y brillantes como en la imagen. */
-        .flower__leafs--1 { animation-delay: 1.2s; bottom: 10%; width: 25%; left: 0%; height: 70%; }
-        .flower__leafs--2 { animation-delay: 1.4s; bottom: 10%; width: 25%; left: 37.5%; height: 70%; }
-        .flower__leafs--3 { animation-delay: 1.6s; bottom: 10%; width: 25%; left: 75%; height: 70%; }
-
-        /* Ajuste de animación para que las flores broten suavemente */
-        @keyframes flower__bloom {
-            0% { opacity: 0; transform: scale(0); }
-            100% { opacity: 1; transform: scale(1); }
+        .flower--3 {
+            transform: translateX(60px) rotate(15deg) scale(0.8);
+            position: absolute;
+            right: -50px;
+            bottom: 0;
+        }
+        .flower--3 .flower__leaf {
+            background: radial-gradient(circle, #e6ffff, #33ffff 60%, #006666);
         }
 
-        @keyframes flower__bloom-first {
-            0% { opacity: 0; transform: scale(0.5) translateY(100%); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* Contenedor del mensaje (adaptado para estar abajo) */
+        /* Cuadro de texto abajo */
         .message-box {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(214, 51, 132, 0.15);
-            border: 1px solid #ffccd5;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideUp 1.5s ease-out 3s forwards;
-            margin-top: 20px;
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
+            border: 2px solid #ffccd5;
+            max-width: 450px;
+            width: 100%;
             text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1.5s ease-out 2.5s forwards;
+            margin-bottom: 20px;
         }
 
         .message-box p {
-            color: #4a4a4a;
-            font-size: 1.1rem;
-            line-height: 1.6;
+            color: #333;
+            font-size: 1.05rem;
+            line-height: 1.5;
         }
 
         .heart {
@@ -126,19 +160,67 @@
             animation: pulse 1.5s infinite;
         }
 
-        /* Keyframes para el mensaje y el corazón */
-        @keyframes slideUp {
-            to { opacity: 1; transform: translateY(0); }
+        /* Animaciones */
+        @keyframes bloom {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.2); }
         }
     </style>
 </head>
-<body class="not-loaded"> <div class="night"></div> <div class="flowers"> <div class="flower flower--1"> <div class="flower__leafs flower__leafs--1"> <div class="flower__leaf flower__leaf--1"></div> <div class="flower__leaf flower__leaf--2"></div> <div class="flower__leaf flower__leaf--3"></div> <div class="flower__leaf flower__leaf--4"></div> <div class="flower__leaf flower__leaf--5"></div> <div class="flower__leaf flower__leaf--6"></div> <div class="flower__leaf flower__leaf--7"></div> <div class="flower__leaf flower__leaf--8"></div> </div>
-            <div class="flower__leafs flower__leafs--2"> <div class="flower__leaf flower__leaf--1"></div> <div class="flower__leaf flower__leaf--2"></div> <div class="flower__leaf flower__leaf--3"></div> <div class="flower__leaf flower__leaf--4"></div> <div class="flower__leaf flower__leaf--5"></div> <div class="flower__leaf flower__leaf--6"></div> <div class="flower__leaf flower__leaf--7"></div> <div class="flower__leaf flower__leaf--8"></div> </div>
-            <div class="flower__leafs flower__leafs--3"> <div class="flower__leaf flower__leaf--1"></div> <div class="flower__leaf flower__leaf--2"></div> <div class="flower__leaf flower__leaf--3"></div> <div class="flower__leaf flower__leaf--4"></div> <div class="flower__leaf flower__leaf--5"></div> <div class="flower__leaf flower__leaf--6"></div> <div class="flower__leaf flower__leaf--7"></div> <div class="flower__leaf flower__leaf--8"></div> </div>
+<body>
+
+    <div class="night"></div>
+
+    <div class="flowers">
+        <div class="flower flower--1">
+            <div class="flower__leafs">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__leaf flower__leaf--5"></div>
+                <div class="flower__leaf flower__leaf--6"></div>
+                <div class="flower__leaf flower__leaf--7"></div>
+                <div class="flower__leaf flower__leaf--8"></div>
+                <div class="flower__line"></div>
+            </div>
+            <div class="flower__light"></div>
+        </div>
+
+        <div class="flower flower--2">
+            <div class="flower__leafs" style="animation-delay: 1.4s;">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__leaf flower__leaf--5"></div>
+                <div class="flower__line" style="height: 220px;"></div>
+            </div>
+        </div>
+
+        <div class="flower flower--3">
+            <div class="flower__leafs" style="animation-delay: 1.8s;">
+                <div class="flower__leaf flower__leaf--1"></div>
+                <div class="flower__leaf flower__leaf--2"></div>
+                <div class="flower__leaf flower__leaf--3"></div>
+                <div class="flower__leaf flower__leaf--4"></div>
+                <div class="flower__leaf flower__leaf--5"></div>
+                <div class="flower__line" style="height: 220px;"></div>
+            </div>
         </div>
     </div>
 
