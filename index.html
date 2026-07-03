@@ -1,1 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Alguien Especial 🌸</title>
+    <style>
+        /* Configuraciones Básicas y Paleta de Colores (Estilo Rosa) */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body {
+            background-color: #ffe6eb; /* Fondo rosa suave */
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Título Principal animado */
+        h1 {
+            color: #d63384;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* Contenedor de la Flor SVG */
+        .flower-wrapper {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        /* Animación de dibujado para los pétalos y tallo */
+        .line-drawing {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .stem {
+            stroke: #2e7d32;
+            stroke-width: 4;
+            fill: none;
+        }
+
+        .leaf {
+            fill: #4caf50;
+            opacity: 0;
+            animation: fadeInSeconds 2s ease-in-out 2.5s forwards;
+        }
+
+        /* Pétalos con gradiente rosa */
+        .petal {
+            fill: url(#rose-gradient);
+            opacity: 0;
+            transform: scale(0);
+            transform-origin: 100px 80px;
+            animation: bloom 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.5s forwards;
+        }
+
+        /* Mensaje o dedicatoria que aparece al final */
+        .message-box {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.1);
+            border: 1px solid #ffccd5;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 1.5s ease-out 3.5s forwards;
+        }
+
+        .message-box p {
+            color: #4a4a4a;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .heart {
+            color: #e91e63;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Clases de Keyframes para las Animaciones CSS */
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInSeconds {
+            to { opacity: 1; }
+        }
+
+        @keyframes bloom {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>¡Feliz primer mes! 🌸</h1>
+
+        <div class="flower-wrapper">
+            <svg viewBox="0 0 200 250" width="100%" height="100%">
+                <defs>
+                    <linearGradient id="rose-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ff6b8b; stop-opacity:1" />
+                        <stop offset="40%" style="stop-color:#ff477e; stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ff0a54; stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+
+                <path class="line-drawing stem" d="M 100,90 Q 95,170 105,240" />
+
+                <path class="leaf" d="M 98,140 Q 60,130 75,115 Q 90,125 98,140" />
+                <path class="leaf" d="M 101,170 Q 140,165 125,145 Q 110,155 101,170" />
+
+                <path class="petal" d="M 100,90 C 60,90 50,40 100,30 C 150,40 140,90 100,90 Z" />
+                <path class="petal" d="M 100,90 C 40,70 70,20 100,30 C 130,20 160,70 100,90 Z" />
+                <path class="petal" style="animation-delay: 2s;" d="M 100,80 C 75,80 75,45 100,45 C 125,45 125,80 100,80 Z" />
+                <path class="petal" style="animation-delay: 2.3s;" d="M 100,75 C 85,75 85,55 100,55 C 115,55 115,75 100,75 Z" />
+            </svg>
+        </div>
+
+        <div class="message-box">
+            <p>Gracias por este increíble primer mes juntos. Cada detalle y cada momento a tu lado ha sido hermoso. ¡Por muchos meses más! <span class="heart">❤️</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Aquí podemos meter interacciones extra con JavaScript si lo deseas, 
+        // como hacer que caigan pétalos flotando por la pantalla.
+        console.log("Página de aniversario cargada correctamente.");
+    </script>
+</body>
+</html>
