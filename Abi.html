@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jorge el Curioso y Contador de Amor - Abril & Jesús</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            romanceBg: '#7b093f',
+            cardBg: '#fbf4ea',
+            treeBrown: '#6d4534'
+          },
+          fontFamily: {
+            hand: ['"Caveat"', 'cursive'],
+            body: ['"Montserrat"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 20%, #bf1363 0%, #75053a 50%, #3f011d 100%);
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Ambient background hearts */
+    .bg-heart-particle {
+      position: absolute;
+      pointer-events: none;
+      filter: blur(1px);
+      opacity: 0.28;
+      animation: floatUp 14s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(110vh) scale(0.6) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.35;
+      }
+      85% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.1) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Card glow & paper effect */
+    .pergamino-card {
+      background: #fbf5eb;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.65), 0 0 45px rgba(255, 105, 180, 0.22);
+      border: 1px solid rgba(255, 235, 235, 0.4);
+      position: relative;
+    }
+
+    /* Typewriter cursor blink */
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.15em;
+      background-color: #831843;
+      margin-left: 2px;
+      vertical-align: -2px;
+      animation: blink 0.85s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Floating music button pulse */
+    .pulse-subtle {
+      animation: pulseSubtle 2.5s infinite;
+    }
+    @keyframes pulseSubtle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    /* Custom scroll bar */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: #f472b6;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-start sm:justify-center min-h-screen p-3 sm:p-5 md:p-8 text-slate-800 relative pb-14">
+
+  <div id="ambient-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+  <!-- Top Action & Navigation Bar -->
+  <header class="w-full max-w-4xl flex flex-wrap items-center justify-between gap-2 px-2 py-2 z-20 text-white mb-2 sm:mb-3">
+    <div class="flex items-center space-x-2">
+      <span class="text-xs uppercase tracking-widest font-semibold text-pink-200 opacity-90 drop-shadow">4 Meses Juntos</span>
+      <span class="text-pink-300">•</span>
+      <span class="text-xs tracking-wide text-pink-100 font-light">Abril & Jesús</span>
+    </div>
+
+    <div class="flex items-center flex-wrap gap-1.5 sm:gap-2">
+      <!-- GitHub Guide Button -->
+      <button id="openGitHelpBtn" class="flex items-center space-x-1 bg-black/40 hover:bg-black/60 active:scale-95 text-pink-100 text-xs px-2.5 py-1.5 rounded-full border border-pink-400/30 backdrop-blur-md transition-all shadow-sm" title="Instrucciones para subir a GitHub Pages">
+        <span>🚀 Guía Git</span>
+      </button>
+
+      <!-- Album Button to switch views -->
+      <button id="openAlbumBtn" class="flex items-center space-x-1.5 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 active:scale-95 text-white text-xs px-3 py-1.5 rounded-full shadow-lg border border-pink-300/40 backdrop-blur-md transition-all font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <span>📸 Fotos con Abril</span>
+      </button>
+
+      <!-- Music toggle button -->
+      <button id="musicToggleBtn" class="flex items-center space-x-1.5 bg-pink-900/60 hover:bg-pink-800/80 active:scale-95 border border-pink-400/40 text-pink-100 text-xs px-3 py-1.5 rounded-full backdrop-blur-md transition-all shadow-md pulse-subtle" title="Música romántica">
+        <svg id="musicIconOn" class="w-3.5 h-3.5 text-pink-300" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
+        </svg>
+        <svg id="musicIconOff" class="w-3.5 h-3.5 text-pink-300 hidden" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+        <span id="musicText" class="font-medium">Música</span>
+      </button>
+
+      <!-- Replay Animation Button -->
+      <button id="replayBtn" class="flex items-center space-x-1 bg-pink-950/40 hover:bg-pink-900/60 active:scale-95 border border-pink-400/30 text-pink-200 text-xs px-2.5 py-1.5 rounded-full backdrop-blur-md transition-all">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        <span>Reiniciar</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="pergamino-card w-full max-w-4xl rounded-3xl p-5 sm:p-8 md:p-10 z-10 flex flex-col justify-between shadow-2xl">
+    
+    <!-- Top & Middle Content Section -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 items-center relative">
+      
+      <!-- Left Column: Love Letter & Dedication -->
+      <div class="md:col-span-6 flex flex-col justify-between z-10 order-2 md:order-1">
+        <div>
+          <!-- Title with glowing heart -->
+          <div class="flex items-center space-x-2 mb-3">
+            <h1 class="text-xl sm:text-2xl font-serif font-bold text-pink-950 tracking-tight">
+              Para el amor de mi vida, Abril:
+            </h1>
+            <span class="text-xl inline-block animate-pulse text-rose-600">❤️</span>
+          </div>
+
+          <!-- Typewriter letter container: auto height for seamless reading and mobile scroll -->
+          <div class="text-stone-700 font-body text-sm sm:text-base leading-relaxed tracking-wide min-h-[140px]">
+            <span id="typedLetterText" class="whitespace-pre-line font-medium text-stone-800"></span><span class="typing-cursor" id="typeCursor"></span>
+          </div>
+        </div>
+
+        <!-- Note info hint -->
+        <p class="text-[11px] text-pink-900/60 italic mt-3 font-light select-none">
+          ✨ Jorge el Curioso te trajo un gran racimo de amor. ¡Tócalo para lanzar más corazones!
+        </p>
+      </div>
+
+      <!-- Right Column: Canvas Heart Tree with Curious George -->
+      <div class="md:col-span-6 relative flex items-center justify-center min-h-[280px] sm:min-h-[340px] md:min-h-[380px] w-full cursor-pointer order-1 md:order-2">
+        <canvas id="treeCanvas" class="w-full h-[280px] sm:h-[340px] md:h-[380px] block rounded-2xl"></canvas>
+        <div id="tapPrompt" class="absolute bottom-2 right-3 text-[10px] text-pink-900/60 pointer-events-none font-medium bg-amber-50/80 px-2 py-0.5 rounded-full border border-pink-200/60 shadow-sm backdrop-blur-sm">
+          🐒 Toca a Jorge
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Counter Section -->
+    <div class="mt-6 pt-4 border-t border-stone-800/20 relative z-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <div>
+          <span class="block text-xs uppercase tracking-wider text-rose-800 font-semibold mb-1">
+            4 meses juntos • Aniversario: 6 de Octubre
+          </span>
+          <!-- Dynamic Time Display formatted faithfully to the TikTok style -->
+          <div class="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-stone-900 tracking-tight flex items-baseline flex-wrap gap-x-2 gap-y-1" id="timerContainer">
+            <span id="daysSpan" class="text-rose-700 font-extrabold text-2xl sm:text-3xl">0</span> <span class="text-xs sm:text-sm font-body text-stone-600 font-medium">días</span>
+            <span id="hoursSpan" class="text-stone-800">0</span> <span class="text-xs sm:text-sm font-body text-stone-600 font-medium">horas</span>
+            <span id="minsSpan" class="text-stone-800">0</span> <span class="text-xs sm:text-sm font-body text-stone-600 font-medium">min</span>
+            <span id="secsSpan" class="text-rose-600 font-bold">0</span> <span class="text-xs sm:text-sm font-body text-stone-600 font-medium">seg</span>
+          </div>
+        </div>
+
+        <!-- Custom Anniversary badge -->
+        <div class="flex items-center space-x-2 self-start sm:self-end">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-200 shadow-sm">
+            ✨ 4 Meses Inolvidables ✨
+          </span>
+        </div>
+      </div>
+      <!-- Ground line matching reference -->
+      <div class="w-full h-1 bg-stone-800/80 rounded-full mt-3"></div>
+    </div>
+
+  </main>
+
+  <!-- Album & Memories Window / Modal Section -->
+  <section id="albumSection" class="fixed inset-0 z-50 bg-stone-950/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6 transition-all duration-300 opacity-0 pointer-events-none">
+    <div class="pergamino-card w-full max-w-4xl h-[92vh] max-h-[92vh] rounded-3xl p-4 sm:p-7 flex flex-col shadow-2xl border border-rose-300/40 overflow-hidden transform scale-95 transition-transform duration-300" id="albumCard">
+      
+      <!-- Album Header -->
+      <div class="flex items-center justify-between border-b border-rose-900/10 pb-3 mb-3">
+        <div>
+          <div class="flex items-center space-x-2">
+            <h2 class="text-lg sm:text-2xl font-serif font-bold text-pink-950">
+              Nuestros Recuerdos, Abril 💕
+            </h2>
+            <span class="text-xs sm:text-sm bg-rose-100 text-rose-800 font-semibold px-2 py-0.5 rounded-full border border-rose-200">
+              4 Meses
+            </span>
+          </div>
+          <p class="text-[11px] sm:text-xs text-stone-600 font-light mt-0.5">
+            Las fotos que subas se guardan solas aquí. Además puedes exportar el código para tu enlace de GitHub.
+          </p>
+        </div>
+
+        <!-- Back to Tree Button -->
+        <button id="closeAlbumBtn" class="flex items-center space-x-1.5 bg-rose-900/10 hover:bg-rose-900/20 active:scale-95 text-rose-900 font-medium text-xs sm:text-sm px-3.5 py-1.5 rounded-full border border-rose-300/60 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>Volver al Árbol</span>
+        </button>
+      </div>
+
+      <!-- Action & Upload Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3 bg-amber-50/80 p-2.5 rounded-2xl border border-rose-200/60 text-xs">
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- File Input -->
+          <label class="cursor-pointer inline-flex items-center space-x-1.5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-semibold px-3 py-2 rounded-xl shadow-sm transition-all active:scale-95">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            <span>Subir Fotos</span>
+            <input type="file" id="photoFileInput" accept="image/*" multiple class="hidden">
+          </label>
+
+          <!-- Add Photo by URL -->
+          <button id="addUrlPhotoBtn" class="inline-flex items-center space-x-1 bg-white hover:bg-rose-50 text-rose-800 font-medium px-3 py-2 rounded-xl border border-rose-300/80 shadow-sm transition-all active:scale-95">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+            </svg>
+            <span>Añadir por Link (URL)</span>
+          </button>
+
+          <!-- Export for GitHub button -->
+          <button id="exportCodeBtn" class="inline-flex items-center space-x-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-semibold px-3 py-2 rounded-xl border border-amber-300 shadow-sm transition-all active:scale-95" title="Exportar fotos para que Abril las vea en GitHub">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            <span>Copiar para GitHub</span>
+          </button>
+        </div>
+        
+        <span class="text-[11px] text-emerald-800 bg-emerald-100/70 border border-emerald-300/60 px-2 py-1 rounded-lg flex items-center gap-1">
+          <span>💾 Auto-guardado local activo</span>
+        </span>
+      </div>
+
+      <!-- Photos Grid Container -->
+      <div id="photosGrid" class="flex-grow overflow-y-auto custom-scroll pr-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 pb-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub Help Modal -->
+  <div id="gitHelpModal" class="fixed inset-0 z-60 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-5">
+    <div class="pergamino-card max-w-xl w-full max-h-[90vh] rounded-3xl p-5 sm:p-7 overflow-y-auto custom-scroll border border-pink-300 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-rose-900/10 pb-3 mb-3">
+        <h3 class="text-lg font-serif font-bold text-pink-950 flex items-center gap-2">
+          <span>🚀 Cómo publicarlo gratis en GitHub Pages</span>
+        </h3>
+        <button id="closeGitHelpBtn" class="text-stone-400 hover:text-stone-700 p-1">✕</button>
+      </div>
+
+      <div class="text-xs sm:text-sm text-stone-700 space-y-3 leading-relaxed">
+        <p class="font-medium text-pink-900">
+          Para que tu novia Abril pueda abrir el enlace en su teléfono y ver todo sin instalar nada:
+        </p>
+        
+        <ol class="list-decimal pl-5 space-y-2">
+          <li>
+            <strong>Guarda este archivo</strong> con el nombre exacto <code class="bg-rose-100 text-rose-800 px-1 py-0.5 rounded font-mono">index.html</code>.
+          </li>
+          <li>
+            <strong>¿Cómo hacer que Abril vea las fotos en su teléfono?</strong>
+            <p class="text-xs text-stone-600 mt-1">
+              Las fotos que subes desde tu teléfono solo se guardan en la memoria de tu dispositivo. Para que Abril las vea desde su propio teléfono, dale al botón <strong>"Copiar para GitHub"</strong> en el álbum; esto te copiará el código de tus fotos para pegarlo en este archivo, o puedes usar enlaces directos de imágenes (por ejemplo subiéndolas a tu repositorio o a un servidor como imgbb / imgur).
+            </p>
+          </li>
+          <li>
+            <strong>En GitHub:</strong> Crea un repositorio público nuevo (por ejemplo: <code class="bg-rose-100 text-rose-800 px-1 py-0.5 rounded font-mono">abril-y-jesus</code>).
+          </li>
+          <li>
+            Sube el archivo <code class="bg-rose-100 text-rose-800 px-1 py-0.5 rounded font-mono">index.html</code> al repositorio.
+          </li>
+          <li>
+            Ve a <strong>Settings (Configuración)</strong> > <strong>Pages</strong> en tu repositorio.
+          </li>
+          <li>
+            En <em>Build and deployment</em> > <em>Branch</em>, elige <strong>main</strong> (o master) y carpeta <strong>/ (root)</strong>, y dale a <strong>Save</strong>.
+          </li>
+          <li>
+            ¡Listo! En 1 minuto tendrás un enlace público como: <br>
+            <span class="font-mono text-xs text-rose-700 bg-rose-50 p-1 rounded block mt-1 break-all">
+              https://tu-usuario.github.io/abril-y-jesus/
+            </span>
+            ¡Ese es el enlace que le enviarás a Abril!
+          </li>
+        </ol>
+
+        <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 mt-3 text-xs text-pink-900">
+          💡 <strong>Tip para el teléfono:</strong> La página está optimizada para que Abril pueda deslizar hacia abajo con total fluidez y ver la carta, el Jorge el Curioso y el contador sin recortarse.
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-rose-900/10 text-right">
+        <button id="closeGitHelpBtnBottom" class="bg-rose-700 hover:bg-rose-600 text-white text-xs px-4 py-2 rounded-full font-medium transition-all">
+          ¡Entendido!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Code Modal -->
+  <div id="exportModal" class="fixed inset-0 z-60 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-5">
+    <div class="pergamino-card max-w-xl w-full max-h-[90vh] rounded-3xl p-5 sm:p-7 overflow-y-auto custom-scroll border border-pink-300 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-rose-900/10 pb-3 mb-2">
+        <h3 class="text-base sm:text-lg font-serif font-bold text-pink-950">
+          📋 Fotos preparadas para GitHub
+        </h3>
+        <button id="closeExportModalBtn" class="text-stone-400 hover:text-stone-700 p-1">✕</button>
+      </div>
+      <p class="text-xs text-stone-600 mb-3">
+        Copia este bloque y reemplázalo en el código donde dice <code class="font-mono bg-rose-100 text-rose-800 px-1 py-0.5 rounded">let defaultInitialPhotos = [...]</code>. De esta forma, las fotos quedarán incrustadas permanentemente y Abril las verá al instante al entrar al enlace de GitHub.
+      </p>
+
+      <textarea id="exportTextarea" class="w-full h-44 p-2.5 font-mono text-xs bg-stone-900 text-pink-200 rounded-xl border border-stone-700 focus:outline-none focus:border-rose-400 select-all" readonly></textarea>
+
+      <div class="mt-3 flex items-center justify-between">
+        <span id="copiedNotice" class="text-xs text-emerald-700 font-semibold opacity-0 transition-opacity">¡Copiado con éxito!</span>
+        <button id="copyExportedTextBtn" class="bg-rose-700 hover:bg-rose-600 active:scale-95 text-white text-xs px-4 py-2 rounded-full font-medium transition-all shadow-md">
+          Copiar Código al Portapapeles
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Fullscreen Lightbox Modal -->
+  <div id="lightboxModal" class="fixed inset-0 z-60 bg-black/90 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <button id="closeLightboxBtn" class="absolute top-4 right-4 text-white/80 hover:text-white bg-stone-900/70 p-2 rounded-full border border-white/20 active:scale-95">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <div class="max-w-3xl max-h-[85vh] flex flex-col items-center">
+      <img id="lightboxImg" src="" alt="Foto con Abril" class="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl">
+      <p id="lightboxCaption" class="text-white text-xs sm:text-sm font-medium mt-3 text-center px-4"></p>
+    </div>
+  </div>
+
+  <footer class="mt-4 text-center text-pink-200/90 text-xs tracking-wider font-light z-10">
+    Hecho con todo mi amor para ti, Abril — Jesús ❤️
+  </footer>
+
+  <script>
+    // Fecha de aniversario: 6 de Octubre
+    const currentYear = new Date().getFullYear();
+    let anniversaryDate = new Date(currentYear, 9, 6, 0, 0, 0); // 9 = Octubre (base 0)
+    const relationshipStartDate = new Date(anniversaryDate);
+    relationshipStartDate.setMonth(relationshipStartDate.getMonth() - 4);
+
+    // Dedicatoria para Abril de parte de Jesús con Jorge el Curioso
+    const letterMessage = 
+`Para mi hermosa Abril:
+
+Parece que fue ayer cuando empezamos a escribir esta hermosa historia juntos...
+
+Hoy cumplimos 4 maravillosos meses llenos de risas, complicidad y un amor que crece cada día. Le pedí a tu personaje favorito, Jorge el Curioso, que viniera a entregarte este enorme racimo de corazones hechos solo para ti.
+
+Gracias por iluminar mi vida con tu sonrisa y hacerme tan feliz. Por este 6 de octubre y por toda una vida a tu lado... ¡Te amo con todo mi ser!
+
+Con todo mi amor,
+Jesús ❤️`;
+
+    // Ambient background hearts
+    const ambientContainer = document.getElementById('ambient-container');
+    const heartSVGs = [
+      'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'
+    ];
+
+    function createAmbientHearts() {
+      const count = 16;
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'bg-heart-particle';
+        const size = Math.random() * 24 + 12;
+        heart.style.width = `${size}px`;
+        heart.style.height = `${size}px`;
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.top = `${Math.random() * 100}vh`;
+        heart.style.animationDelay = `${Math.random() * 10}s`;
+        heart.style.animationDuration = `${10 + Math.random() * 10}s`;
+
+        heart.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="rgba(255, 182, 193, ${0.35 + Math.random() * 0.4})" class="w-full h-full filter drop-shadow(0 0 6px rgba(255,105,180,0.4))">
+            <path d="${heartSVGs[0]}" />
+          </svg>
+        `;
+        ambientContainer.appendChild(heart);
+      }
+    }
+    createAmbientHearts();
+
+    // Contador de tiempo
+    function updateCounter() {
+      const current = new Date();
+      let diff = Math.max(0, current - relationshipStartDate);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+
+      const mins = Math.floor(diff / (1000 * 60));
+      diff -= mins * (1000 * 60);
+
+      const secs = Math.floor(diff / 1000);
+
+      document.getElementById('daysSpan').textContent = days;
+      document.getElementById('hoursSpan').textContent = hours;
+      document.getElementById('minsSpan').textContent = mins;
+      document.getElementById('secsSpan').textContent = secs;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // Typewriter effect
+    let typewriterIndex = 0;
+    let isTyping = false;
+    let typeTimeout = null;
+
+    function typeNextChar() {
+      const targetElement = document.getElementById('typedLetterText');
+      if (!targetElement) return;
+
+      if (typewriterIndex < letterMessage.length) {
+        targetElement.textContent = letterMessage.slice(0, typewriterIndex + 1);
+        const char = letterMessage[typewriterIndex];
+        typewriterIndex++;
+
+        let delay = 30;
+        if (char === '.' || char === '!' || char === '?') delay = 260;
+        else if (char === ',' || char === ':') delay = 140;
+        else if (char === '\n') delay = 190;
+
+        typeTimeout = setTimeout(typeNextChar, delay);
+      } else {
+        isTyping = false;
+      }
+    }
+
+    function startTypewriter() {
+      if (typeTimeout) clearTimeout(typeTimeout);
+      typewriterIndex = 0;
+      isTyping = true;
+      const targetElement = document.getElementById('typedLetterText');
+      if (targetElement) targetElement.textContent = '';
+      typeTimeout = setTimeout(typeNextChar, 300);
+    }
+
+    // Audio synthesizer
+    let audioCtx = null;
+    let isMusicPlaying = false;
+    let melodyTimer = null;
+    let currentNoteIndex = 0;
+
+    const melodyNotes = [
+      261.63, 329.63, 392.00, 523.25, 493.88, 392.00, 329.63,
+      349.23, 440.00, 523.25, 659.25, 523.25, 440.00, 392.00,
+      329.63, 392.00, 440.00, 523.25, 587.33, 493.88, 392.00,
+      261.63, 329.63, 392.00, 523.25, 659.25, 523.25, 392.00
+    ];
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          audioCtx = new AudioContext();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSoftTone(freq, duration = 0.5, volume = 0.08) {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(volume, audioCtx.currentTime + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playMelodyStep() {
+      if (!isMusicPlaying) return;
+      const freq = melodyNotes[currentNoteIndex % melodyNotes.length];
+      playSoftTone(freq, 0.7, 0.065);
+      currentNoteIndex++;
+      melodyTimer = setTimeout(playMelodyStep, 460);
+    }
+
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const musicIconOn = document.getElementById('musicIconOn');
+    const musicIconOff = document.getElementById('musicIconOff');
+    const musicText = document.getElementById('musicText');
+
+    function toggleMusic() {
+      initAudioContext();
+      isMusicPlaying = !isMusicPlaying;
+
+      if (isMusicPlaying) {
+        if (musicIconOn) musicIconOn.classList.remove('hidden');
+        if (musicIconOff) musicIconOff.classList.add('hidden');
+        if (musicText) musicText.textContent = 'Sonando...';
+        playMelodyStep();
+      } else {
+        if (musicIconOn) musicIconOn.classList.add('hidden');
+        if (musicIconOff) musicIconOff.classList.remove('hidden');
+        if (musicText) musicText.textContent = 'Música';
+        if (melodyTimer) clearTimeout(melodyTimer);
+      }
+    }
+
+    if (musicBtn) {
+      musicBtn.addEventListener('click', toggleMusic);
+    }
+
+    // Canvas Engine with Curious George & Blooming Heart Balloons
+    const canvas = document.getElementById('treeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = 0;
+    let height = 0;
+    let heartLeaves = [];
+    let fallingLeaves = [];
+    let clickSparks = [];
+    let treeGrowthProgress = 0;
+    let isFullyBloomed = false;
+    let georgeBounce = 0;
+    let georgeBounceSpeed = 0;
+
+    const heartColors = [
+      '#9f1239', '#be123c', '#dc2626', '#e11d48',
+      '#f43f5e', '#fb7185', '#ec4899', '#f472b6',
+      '#fda4af', '#be185d', '#c2410c'
+    ];
+
+    function drawHeart(c, x, y, size, angle, color, opacity = 1) {
+      c.save();
+      c.translate(x, y);
+      c.rotate(angle);
+      c.globalAlpha = opacity;
+      c.fillStyle = color;
+      c.beginPath();
+      const topCurveHeight = size * 0.3;
+      c.moveTo(0, topCurveHeight);
+      c.bezierCurveTo(0, 0, -size / 2, 0, -size / 2, topCurveHeight);
+      c.bezierCurveTo(-size / 2, (size + topCurveHeight) / 2, 0, (size + topCurveHeight) / 1.15, 0, size);
+      c.bezierCurveTo(0, (size + topCurveHeight) / 1.15, size / 2, (size + topCurveHeight) / 2, size / 2, topCurveHeight);
+      c.bezierCurveTo(size / 2, 0, 0, 0, 0, topCurveHeight);
+      c.closePath();
+      c.fill();
+      c.restore();
+    }
+
+    function isInsideHeart(normX, normY) {
+      const x = normX * 1.25;
+      const y = -normY * 1.25;
+      const a = x * x + y * y - 1;
+      return (a * a * a - x * x * y * y * y) <= 0.05;
+    }
+
+    function getHeartCrownPoint(centerX, centerY, radiusX, radiusY) {
+      let attempts = 0;
+      while (attempts < 500) {
+        attempts++;
+        const rx = (Math.random() * 2 - 1) * 1.35;
+        const ry = (Math.random() * 2 - 1) * 1.35;
+        if (isInsideHeart(rx, ry)) {
+          return {
+            x: centerX + rx * radiusX,
+            y: centerY + ry * radiusY
+          };
+        }
+      }
+      return { x: centerX, y: centerY };
+    }
+
+    function drawCuriousGeorge(c, gx, gy, scale = 1, bounceOffset = 0) {
+      c.save();
+      c.translate(gx, gy + bounceOffset);
+      c.scale(scale, scale);
+
+      const furBrown = '#733e1c';
+      const darkFur = '#542c12';
+      const skinPeach = '#f7d2b0';
+      const blushPink = 'rgba(235, 94, 118, 0.45)';
+
+      // 1. Shadow underneath George's feet
+      c.fillStyle = 'rgba(74, 43, 30, 0.2)';
+      c.beginPath();
+      c.ellipse(0, 5, 26, 6, 0, 0, Math.PI * 2);
+      c.fill();
+
+      // 2. Feet
+      c.fillStyle = furBrown;
+      c.beginPath();
+      c.ellipse(-13, 2, 8, 5.5, -0.2, 0, Math.PI * 2);
+      c.fill();
+      c.beginPath();
+      c.ellipse(13, 2, 8, 5.5, 0.2, 0, Math.PI * 2);
+      c.fill();
+
+      // 3. Legs
+      c.lineWidth = 9;
+      c.strokeStyle = furBrown;
+      c.lineCap = 'round';
+      c.beginPath();
+      c.moveTo(-9, -16);
+      c.lineTo(-11, 0);
+      c.moveTo(9, -16);
+      c.lineTo(11, 0);
+      c.stroke();
+
+      // 4. Torso / Body
+      c.fillStyle = furBrown;
+      c.beginPath();
+      c.ellipse(0, -30, 18, 24, 0, 0, Math.PI * 2);
+      c.fill();
+
+      c.fillStyle = skinPeach;
+      c.beginPath();
+      c.ellipse(0, -28, 11, 15, 0, 0, Math.PI * 2);
+      c.fill();
+
+      // 5. Left Arm holding the balloons string bundle up high
+      c.strokeStyle = furBrown;
+      c.lineWidth = 8;
+      c.beginPath();
+      c.moveTo(-12, -44);
+      c.quadraticCurveTo(-24, -62, -16, -80);
+      c.stroke();
+
+      c.fillStyle = furBrown;
+      c.beginPath();
+      c.arc(-16, -82, 6, 0, Math.PI * 2);
+      c.fill();
+
+      // 6. Right Arm holding a little heart for Abril
+      c.beginPath();
+      c.moveTo(12, -44);
+      c.quadraticCurveTo(28, -40, 26, -24);
+      c.stroke();
+      c.fillStyle = furBrown;
+      c.beginPath();
+      c.arc(26, -22, 5.5, 0, Math.PI * 2);
+      c.fill();
+
+      drawHeart(c, 26, -22, 8.5, 0.2, '#e11d48', 1);
+
+      // 7. Head & Ears
+      c.fillStyle = furBrown;
+      c.beginPath();
+      c.arc(-22, -64, 8.5, 0, Math.PI * 2);
+      c.arc(22, -64, 8.5, 0, Math.PI * 2);
+      c.fill();
+
+      c.fillStyle = skinPeach;
+      c.beginPath();
+      c.arc(-21, -64, 4.5, 0, Math.PI * 2);
+      c.arc(21, -64, 4.5, 0, Math.PI * 2);
+      c.fill();
+
+      c.fillStyle = furBrown;
+      c.beginPath();
+      c.arc(0, -64, 21, 0, Math.PI * 2);
+      c.fill();
+
+      // Top hair tuft
+      c.beginPath();
+      c.moveTo(-3, -85);
+      c.quadraticCurveTo(0, -92, 3, -85);
+      c.stroke();
+
+      // 8. Face Mask
+      c.fillStyle = skinPeach;
+      c.beginPath();
+      c.ellipse(-7, -68, 9, 10, -0.15, 0, Math.PI * 2);
+      c.ellipse(7, -68, 9, 10, 0.15, 0, Math.PI * 2);
+      c.fill();
+
+      c.beginPath();
+      c.ellipse(0, -58, 13, 10, 0, 0, Math.PI * 2);
+      c.fill();
+
+      // 9. Eyes
+      c.fillStyle = '#22140c';
+      c.beginPath();
+      c.ellipse(-6, -68, 3, 4.2, 0, 0, Math.PI * 2);
+      c.ellipse(6, -68, 3, 4.2, 0, 0, Math.PI * 2);
+      c.fill();
+
+      c.fillStyle = '#ffffff';
+      c.beginPath();
+      c.arc(-7, -70, 1.2, 0, Math.PI * 2);
+      c.arc(5, -70, 1.2, 0, Math.PI * 2);
+      c.fill();
+
+      c.strokeStyle = darkFur;
+      c.lineWidth = 1.4;
+      c.beginPath();
+      c.arc(-6, -74, 4.5, 1.1 * Math.PI, 1.9 * Math.PI);
+      c.stroke();
+      c.beginPath();
+      c.arc(6, -74, 4.5, 1.1 * Math.PI, 1.9 * Math.PI);
+      c.stroke();
+
+      // 10. Little button nose
+      c.fillStyle = darkFur;
+      c.beginPath();
+      c.ellipse(0, -62, 2.2, 1.6, 0, 0, Math.PI * 2);
+      c.fill();
+
+      // 11. Sweet smile
+      c.strokeStyle = '#5a1910';
+      c.lineWidth = 2;
+      c.lineCap = 'round';
+      c.beginPath();
+      c.arc(0, -60, 8, 0.2 * Math.PI, 0.8 * Math.PI);
+      c.stroke();
+
+      // Blush
+      c.fillStyle = blushPink;
+      c.beginPath();
+      c.arc(-13, -59, 3.5, 0, Math.PI * 2);
+      c.arc(13, -59, 3.5, 0, Math.PI * 2);
+      c.fill();
+
+      c.restore();
+    }
+
+    function buildHeartLeavesCollection(centerX, crownCenterY, radiusX, radiusY) {
+      heartLeaves = [];
+      const totalLeaves = Math.min(500, Math.max(300, Math.floor(width * 0.9)));
+
+      for (let i = 0; i < totalLeaves; i++) {
+        const pt = getHeartCrownPoint(centerX, crownCenterY, radiusX, radiusY);
+        const dist = Math.hypot(pt.x - centerX, pt.y - crownCenterY);
+        const maxDist = Math.hypot(radiusX, radiusY);
+        const distRatio = dist / maxDist;
+
+        heartLeaves.push({
+          x: pt.x,
+          y: pt.y,
+          targetSize: 8 + Math.random() * 11,
+          size: 0,
+          angle: (Math.random() - 0.5) * 1.1,
+          color: heartColors[Math.floor(Math.random() * heartColors.length)],
+          delay: 8 + distRatio * 38 + Math.random() * 10,
+          bloomProgress: 0,
+          opacity: 0.88 + Math.random() * 0.12
+        });
+      }
+
+      heartLeaves.sort((a, b) => a.delay - b.delay);
+    }
+
+    class FallingHeart {
+      constructor(isBurst = false, originX = null, originY = null) {
+        this.reset(isBurst, originX, originY);
+      }
+
+      reset(isBurst = false, originX = null, originY = null) {
+        this.size = 7 + Math.random() * 7;
+        this.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+        this.angle = Math.random() * Math.PI * 2;
+        this.angleSpeed = (Math.random() - 0.5) * 0.04;
+        this.opacity = 0.8 + Math.random() * 0.2;
+
+        if (isBurst && originX !== null) {
+          this.x = originX;
+          this.y = originY;
+          const rad = Math.random() * Math.PI * 2;
+          const force = 2.2 + Math.random() * 4.5;
+          this.vx = Math.cos(rad) * force;
+          this.vy = Math.sin(rad) * force;
+          this.gravity = 0.035;
+          this.fade = 0.01;
+        } else {
+          const georgeX = georgePos.x;
+          const crownY = crownCenter.y;
+          this.x = georgeX - Math.random() * (width * 0.25);
+          this.y = crownY + (Math.random() - 0.5) * (height * 0.4);
+          this.vx = -(1.0 + Math.random() * 1.6);
+          this.vy = 0.4 + Math.random() * 0.8;
+          this.gravity = 0.015;
+          this.fade = 0.0024;
+        }
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += this.gravity;
+        this.angle += this.angleSpeed;
+        this.opacity -= this.fade;
+
+        const ground = height - 10;
+        if (this.y >= ground) {
+          this.y = ground;
+          this.vy = 0;
+          this.vx *= 0.8;
+          this.fade = 0.018;
+        }
+      }
+
+      draw(c) {
+        if (this.opacity <= 0.01) return;
+        drawHeart(c, this.x, this.y, this.size, this.angle, this.color, Math.max(0, this.opacity));
+      }
+    }
+
+    let crownCenter = { x: 0, y: 0, rx: 0, ry: 0 };
+    let georgePos = { x: 0, y: 0, scale: 1 };
+
+    function initTree() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      width = rect.width;
+      height = rect.height;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.resetTransform?.();
+      ctx.scale(dpr, dpr);
+
+      // Positioning Curious George adapted for both mobile & desktop
+      const isMobile = width < 500;
+      georgePos.x = isMobile ? width * 0.68 : width * 0.65;
+      georgePos.y = height - 12;
+      georgePos.scale = Math.min(1.15, Math.max(0.7, height / 350));
+
+      crownCenter.x = georgePos.x;
+      crownCenter.y = height * 0.36;
+      crownCenter.rx = Math.min(width * 0.32, 120);
+      crownCenter.ry = Math.min(height * 0.32, 122);
+
+      buildHeartLeavesCollection(crownCenter.x, crownCenter.y, crownCenter.rx, crownCenter.ry);
+
+      fallingLeaves = [];
+      for (let i = 0; i < 18; i++) {
+        const leaf = new FallingHeart();
+        leaf.y = Math.random() * height;
+        leaf.x = georgePos.x - Math.random() * (width * 0.45);
+        fallingLeaves.push(leaf);
+      }
+
+      treeGrowthProgress = 0;
+      isFullyBloomed = false;
+      georgeBounce = 0;
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      const handX = georgePos.x - 16 * georgePos.scale;
+      const handY = (georgePos.y + georgeBounce) - 82 * georgePos.scale;
+
+      // 1. Strings connecting George's hand to balloons
+      if (treeGrowthProgress > 5) {
+        ctx.save();
+        const stringProgress = Math.min(1, treeGrowthProgress / 35);
+        ctx.strokeStyle = 'rgba(180, 83, 9, 0.45)';
+        ctx.lineWidth = 1.1;
+
+        const stringTargets = [
+          { x: crownCenter.x - crownCenter.rx * 0.65, y: crownCenter.y - crownCenter.ry * 0.1 },
+          { x: crownCenter.x - crownCenter.rx * 0.35, y: crownCenter.y - crownCenter.ry * 0.5 },
+          { x: crownCenter.x, y: crownCenter.y - crownCenter.ry * 0.65 },
+          { x: crownCenter.x + crownCenter.rx * 0.35, y: crownCenter.y - crownCenter.ry * 0.5 },
+          { x: crownCenter.x + crownCenter.rx * 0.65, y: crownCenter.y - crownCenter.ry * 0.1 },
+          { x: crownCenter.x, y: crownCenter.y }
+        ];
+
+        stringTargets.forEach(st => {
+          ctx.beginPath();
+          ctx.moveTo(handX, handY);
+          const currentDestX = handX + (st.x - handX) * stringProgress;
+          const currentDestY = handY + (st.y - handY) * stringProgress;
+          ctx.quadraticCurveTo((handX + currentDestX) / 2 + 5, (handY + currentDestY) / 2, currentDestX, currentDestY);
+          ctx.stroke();
+        });
+
+        ctx.fillStyle = '#be123c';
+        ctx.beginPath();
+        ctx.ellipse(handX - 3.5, handY, 3.5, 2.2, -0.4, 0, Math.PI * 2);
+        ctx.ellipse(handX + 3.5, handY, 3.5, 2.2, 0.4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // 2. Draw Curious George
+      drawCuriousGeorge(ctx, georgePos.x, georgePos.y, georgePos.scale, georgeBounce);
+
+      if (Math.abs(georgeBounce) > 0.05 || Math.abs(georgeBounceSpeed) > 0.05) {
+        georgeBounceSpeed += (0 - georgeBounce) * 0.2;
+        georgeBounceSpeed *= 0.78;
+        georgeBounce += georgeBounceSpeed;
+      } else {
+        georgeBounce = 0;
+        georgeBounceSpeed = 0;
+      }
+
+      treeGrowthProgress += 0.8;
+
+      // 3. Bloom Heart Canopy
+      let fullyExpandedCount = 0;
+      for (let i = 0; i < heartLeaves.length; i++) {
+        const leaf = heartLeaves[i];
+        if (treeGrowthProgress > leaf.delay) {
+          if (leaf.bloomProgress < 1) {
+            leaf.bloomProgress += 0.038;
+            leaf.size = leaf.targetSize * Math.sin((leaf.bloomProgress * Math.PI) / 2);
+          } else {
+            fullyExpandedCount++;
+          }
+          drawHeart(ctx, leaf.x, leaf.y, leaf.size, leaf.angle, leaf.color, leaf.opacity);
+        }
+      }
+
+      if (fullyExpandedCount > heartLeaves.length * 0.85 && !isFullyBloomed) {
+        isFullyBloomed = true;
+        const prompt = document.getElementById('tapPrompt');
+        if (prompt) prompt.textContent = '🐒 ¡Feliz 4º Mes, Abril!';
+      }
+
+      // 4. Update falling heart petals
+      if (treeGrowthProgress > 35 && Math.random() < 0.25) {
+        fallingLeaves.push(new FallingHeart());
+      }
+
+      for (let i = fallingLeaves.length - 1; i >= 0; i--) {
+        const fl = fallingLeaves[i];
+        fl.update();
+        fl.draw(ctx);
+        if (fl.opacity <= 0.01) {
+          fallingLeaves.splice(i, 1);
+        }
+      }
+
+      // 5. Update click sparks
+      for (let i = clickSparks.length - 1; i >= 0; i--) {
+        const spark = clickSparks[i];
+        spark.update();
+        spark.draw(ctx);
+        if (spark.opacity <= 0.01) {
+          clickSparks.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    function createBurst(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      const canvasX = clientX - rect.left;
+      const canvasY = clientY - rect.top;
+
+      georgeBounceSpeed = -10;
+
+      if (audioCtx && isMusicPlaying) {
+        const randomNote = melodyNotes[Math.floor(Math.random() * melodyNotes.length)];
+        playSoftTone(randomNote * 1.5, 0.4);
+      }
+
+      for (let i = 0; i < 15; i++) {
+        clickSparks.push(new FallingHeart(true, canvasX, canvasY));
+      }
+    }
+
+    canvas.addEventListener('click', (e) => {
+      createBurst(e.clientX, e.clientY);
+    });
+
+    // Mobile touch interaction
+    canvas.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        createBurst(touch.clientX, touch.clientY);
+      }
+    }, { passive: true });
+
+    // Default initial sample photos (These can be replaced when exported for GitHub)
+    let defaultInitialPhotos = [
+      {
+        id: 'sample-1',
+        title: 'El comienzo de todo ✨',
+        date: '6 de Junio',
+        src: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=700&q=80',
+        note: 'Donde empezó a latir este hermoso amor entre Jesús y Abril.'
+      },
+      {
+        id: 'sample-2',
+        title: 'Tu sonrisa que me enamora 💕',
+        date: 'Recuerdo especial',
+        src: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=700&q=80',
+        note: 'Mi momento favorito siempre es a tu lado, Abril. — Jesús'
+      },
+      {
+        id: 'sample-3',
+        title: 'Hacia nuestro 4º mes 🌹',
+        date: '6 de Octubre',
+        src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=700&q=80',
+        note: 'Celebrando cada segundo juntos, Jesús & Abril.'
+      }
+    ];
+
+    let albumPhotos = [...defaultInitialPhotos];
+
+    // IndexedDB Implementation for permanent local persistence on reloads
+    const DB_NAME = 'AbrilJesusMemoriesDB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'photos';
+
+    function openDatabase() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+          }
+        };
+        request.onsuccess = (e) => resolve(e.target.result);
+        request.onerror = (e) => reject(e.target.error);
+      });
+    }
+
+    async function loadPersistedPhotos() {
+      try {
+        const db = await openDatabase();
+        return new Promise((resolve) => {
+          const transaction = db.transaction(STORE_NAME, 'readonly');
+          const store = transaction.objectStore(STORE_NAME);
+          const request = store.getAll();
+          request.onsuccess = () => {
+            const data = request.result;
+            if (data && data.length > 0) {
+              albumPhotos = data;
+            }
+            resolve(albumPhotos);
+          };
+          request.onerror = () => resolve(albumPhotos);
+        });
+      } catch (err) {
+        console.warn('IndexedDB not supported or accessible, using in-memory default:', err);
+        return albumPhotos;
+      }
+    }
+
+    async function savePhotoToDB(photo) {
+      try {
+        const db = await openDatabase();
+        const transaction = db.transaction(STORE_NAME, 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        store.put(photo);
+      } catch (err) {
+        console.error('Error saving photo to IndexedDB:', err);
+      }
+    }
+
+    async function removePhotoFromDB(id) {
+      try {
+        const db = await openDatabase();
+        const transaction = db.transaction(STORE_NAME, 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        store.delete(id);
+      } catch (err) {
+        console.error('Error removing photo from IndexedDB:', err);
+      }
+    }
+
+    // Modal & Album DOM elements
+    const albumSection = document.getElementById('albumSection');
+    const albumCard = document.getElementById('albumCard');
+    const openAlbumBtn = document.getElementById('openAlbumBtn');
+    const closeAlbumBtn = document.getElementById('closeAlbumBtn');
+    const photoFileInput = document.getElementById('photoFileInput');
+    const addUrlPhotoBtn = document.getElementById('addUrlPhotoBtn');
+    const exportCodeBtn = document.getElementById('exportCodeBtn');
+    const photosGrid = document.getElementById('photosGrid');
+
+    // GitHub & Export modal elements
+    const gitHelpModal = document.getElementById('gitHelpModal');
+    const openGitHelpBtn = document.getElementById('openGitHelpBtn');
+    const closeGitHelpBtn = document.getElementById('closeGitHelpBtn');
+    const closeGitHelpBtnBottom = document.getElementById('closeGitHelpBtnBottom');
+
+    const exportModal = document.getElementById('exportModal');
+    const closeExportModalBtn = document.getElementById('closeExportModalBtn');
+    const exportTextarea = document.getElementById('exportTextarea');
+    const copyExportedTextBtn = document.getElementById('copyExportedTextBtn');
+    const copiedNotice = document.getElementById('copiedNotice');
+
+    // Lightbox modal elements
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+
+    function renderPhotos() {
+      if (!photosGrid) return;
+      photosGrid.innerHTML = '';
+
+      if (albumPhotos.length === 0) {
+        photosGrid.innerHTML = `
+          <div class="col-span-full py-10 text-center text-stone-500">
+            <span class="text-3xl block mb-2">📸</span>
+            <p class="font-medium text-stone-700">Aún no hay fotos añadidas.</p>
+            <p class="text-xs text-stone-400 mt-1">Presiona "Subir Fotos" o "Añadir por Link" para agregar sus recuerdos.</p>
+          </div>
+        `;
+        return;
+      }
+
+      albumPhotos.forEach((photo, index) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-3 rounded-2xl shadow-md border border-rose-200/80 hover:shadow-lg transition-all duration-200 flex flex-col group';
+        card.innerHTML = `
+          <div class="relative w-full aspect-square overflow-hidden rounded-xl bg-stone-100 cursor-pointer photo-thumbnail" data-index="${index}">
+            <img src="${photo.src}" alt="${photo.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium">
+              🔍 Ver en grande
+            </div>
+          </div>
+          <div class="mt-2.5 flex flex-col flex-grow justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-1">
+                <input type="text" value="${photo.title}" class="text-xs sm:text-sm font-semibold text-rose-950 bg-transparent border-b border-transparent hover:border-rose-300 focus:border-rose-500 focus:outline-none w-full photo-title-input" data-index="${index}">
+                <button class="delete-photo-btn text-stone-400 hover:text-red-500 p-1 transition-colors" data-index="${index}" title="Eliminar foto">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+              <p class="text-[11px] text-stone-500 mt-1 italic">${photo.note || 'Un recuerdo lleno de amor'}</p>
+            </div>
+            <span class="text-[10px] text-rose-700/80 font-medium self-end mt-2 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200/50">
+              ${photo.date || 'Con Abril'}
+            </span>
+          </div>
+        `;
+        photosGrid.appendChild(card);
+      });
+
+      // Events
+      document.querySelectorAll('.photo-thumbnail').forEach(el => {
+        el.addEventListener('click', () => {
+          const idx = parseInt(el.getAttribute('data-index'), 10);
+          openLightbox(idx);
+        });
+      });
+
+      document.querySelectorAll('.photo-title-input').forEach(input => {
+        input.addEventListener('change', () => {
+          const idx = parseInt(input.getAttribute('data-index'), 10);
+          if (albumPhotos[idx]) {
+            albumPhotos[idx].title = input.value;
+            savePhotoToDB(albumPhotos[idx]);
+          }
+        });
+      });
+
+      document.querySelectorAll('.delete-photo-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const idx = parseInt(btn.getAttribute('data-index'), 10);
+          const photoToRemove = albumPhotos[idx];
+          if (photoToRemove) {
+            removePhotoFromDB(photoToRemove.id);
+            albumPhotos.splice(idx, 1);
+            renderPhotos();
+          }
+        });
+      });
+    }
+
+    function openAlbum() {
+      albumSection.classList.remove('opacity-0', 'pointer-events-none');
+      albumSection.classList.add('opacity-100', 'pointer-events-auto');
+      albumCard.classList.remove('scale-95');
+      albumCard.classList.add('scale-100');
+      renderPhotos();
+    }
+
+    function closeAlbum() {
+      albumSection.classList.add('opacity-0', 'pointer-events-none');
+      albumSection.classList.remove('opacity-100', 'pointer-events-auto');
+      albumCard.classList.add('scale-95');
+      albumCard.classList.remove('scale-100');
+    }
+
+    openAlbumBtn.addEventListener('click', openAlbum);
+    closeAlbumBtn.addEventListener('click', closeAlbum);
+
+    // Image compression before storage to keep IndexedDB and GitHub size optimal
+    function compressImage(file, maxWidth = 1000, quality = 0.75) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let w = img.width;
+            let h = img.height;
+            if (w > maxWidth) {
+              h = (maxWidth / w) * h;
+              w = maxWidth;
+            }
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+        };
+      });
+    }
+
+    // Photo file input handler
+    photoFileInput.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      if (!files.length) return;
+
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) continue;
+        const compressedBase64 = await compressImage(file);
+        const newPhoto = {
+          id: 'photo-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
+          title: file.name.replace(/\.[^/.]+$/, "").substring(0, 24) || 'Recuerdo con Abril',
+          date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
+          src: compressedBase64,
+          note: 'Momento inolvidable de Abril & Jesús ❤️'
+        };
+        albumPhotos.unshift(newPhoto);
+        await savePhotoToDB(newPhoto);
+      }
+
+      photoFileInput.value = '';
+      renderPhotos();
+    });
+
+    // Add Photo by URL option (ideal for linking online photos or repo relative paths)
+    addUrlPhotoBtn.addEventListener('click', () => {
+      const url = prompt('Ingresa el enlace directo de la foto (o ruta como ./fotos/foto1.jpg):');
+      if (url && url.trim().length > 0) {
+        const title = prompt('Título o descripción de la foto:', 'Recuerdo especial') || 'Con Abril';
+        const newPhoto = {
+          id: 'photo-' + Date.now(),
+          title: title.substring(0, 28),
+          date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
+          src: url.trim(),
+          note: 'Jesús & Abril ❤️'
+        };
+        albumPhotos.unshift(newPhoto);
+        savePhotoToDB(newPhoto);
+        renderPhotos();
+      }
+    });
+
+    // Export code modal for GitHub Pages
+    exportCodeBtn.addEventListener('click', () => {
+      const codeSnippet = `let defaultInitialPhotos = ${JSON.stringify(albumPhotos, null, 2)};`;
+      exportTextarea.value = codeSnippet;
+      exportModal.classList.remove('hidden');
+      exportModal.classList.add('flex');
+    });
+
+    closeExportModalBtn.addEventListener('click', () => {
+      exportModal.classList.add('hidden');
+      exportModal.classList.remove('flex');
+    });
+
+    copyExportedTextBtn.addEventListener('click', () => {
+      exportTextarea.select();
+      document.execCommand('copy');
+      copiedNotice.classList.remove('opacity-0');
+      setTimeout(() => {
+        copiedNotice.classList.add('opacity-0');
+      }, 2500);
+    });
+
+    // Git Help modal handlers
+    openGitHelpBtn.addEventListener('click', () => {
+      gitHelpModal.classList.remove('hidden');
+      gitHelpModal.classList.add('flex');
+    });
+
+    const closeGitHelp = () => {
+      gitHelpModal.classList.add('hidden');
+      gitHelpModal.classList.remove('flex');
+    };
+    closeGitHelpBtn.addEventListener('click', closeGitHelp);
+    closeGitHelpBtnBottom.addEventListener('click', closeGitHelp);
+
+    // Lightbox modal handlers
+    function openLightbox(idx) {
+      const photo = albumPhotos[idx];
+      if (!photo) return;
+      lightboxImg.src = photo.src;
+      lightboxCaption.textContent = `${photo.title} — ${photo.note || ''}`;
+      lightboxModal.classList.remove('hidden');
+      lightboxModal.classList.add('flex');
+    }
+
+    function closeLightbox() {
+      lightboxModal.classList.add('hidden');
+      lightboxModal.classList.remove('flex');
+    }
+
+    closeLightboxBtn.addEventListener('click', closeLightbox);
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) closeLightbox();
+    });
+
+    function restartExperience() {
+      initTree();
+      startTypewriter();
+    }
+
+    document.getElementById('replayBtn').addEventListener('click', () => {
+      restartExperience();
+    });
+
+    let resizeDebounce;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeDebounce);
+      resizeDebounce = setTimeout(() => {
+        initTree();
+      }, 200);
+    });
+
+    // Start everything on window load
+    window.onload = async function () {
+      await loadPersistedPhotos();
+      initTree();
+      animate();
+      startTypewriter();
+    };
+  </script>
+</body>
+</html>
