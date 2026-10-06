@@ -55,12 +55,8 @@
         transform: translateY(110vh) scale(0.6) rotate(0deg);
         opacity: 0;
       }
-      15% {
-        opacity: 0.35;
-      }
-      85% {
-        opacity: 0.3;
-      }
+      15% { opacity: 0.35; }
+      85% { opacity: 0.3; }
       100% {
         transform: translateY(-10vh) scale(1.1) rotate(360deg);
         opacity: 0;
@@ -123,12 +119,7 @@
     </div>
 
     <div class="flex items-center flex-wrap gap-1.5 sm:gap-2">
-      <!-- GitHub Guide Button -->
-      <button id="openGitHelpBtn" class="flex items-center space-x-1 bg-black/40 hover:bg-black/60 active:scale-95 text-pink-100 text-xs px-2.5 py-1.5 rounded-full border border-pink-400/30 backdrop-blur-md transition-all shadow-sm" title="Instrucciones para subir a GitHub Pages">
-        <span>🚀 Guía Git</span>
-      </button>
-
-      <!-- Album Button to switch views -->
+      <!-- Photos Button -->
       <button id="openAlbumBtn" class="flex items-center space-x-1.5 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 active:scale-95 text-white text-xs px-3 py-1.5 rounded-full shadow-lg border border-pink-300/40 backdrop-blur-md transition-all font-medium">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -173,13 +164,12 @@
             <span class="text-xl inline-block animate-pulse text-rose-600">❤️</span>
           </div>
 
-          <!-- Typewriter letter container: auto height for seamless reading and mobile scroll -->
+          <!-- Typewriter letter container -->
           <div class="text-stone-700 font-body text-sm sm:text-base leading-relaxed tracking-wide min-h-[140px]">
             <span id="typedLetterText" class="whitespace-pre-line font-medium text-stone-800"></span><span class="typing-cursor" id="typeCursor"></span>
           </div>
         </div>
 
-        <!-- Note info hint -->
         <p class="text-[11px] text-pink-900/60 italic mt-3 font-light select-none">
           ✨ Jorge el Curioso te trajo un gran racimo de amor. ¡Tócalo para lanzar más corazones!
         </p>
@@ -201,7 +191,6 @@
           <span class="block text-xs uppercase tracking-wider text-rose-800 font-semibold mb-1">
             4 meses juntos • Aniversario: 6 de Octubre
           </span>
-          <!-- Dynamic Time Display formatted faithfully to the TikTok style -->
           <div class="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-stone-900 tracking-tight flex items-baseline flex-wrap gap-x-2 gap-y-1" id="timerContainer">
             <span id="daysSpan" class="text-rose-700 font-extrabold text-2xl sm:text-3xl">0</span> <span class="text-xs sm:text-sm font-body text-stone-600 font-medium">días</span>
             <span id="hoursSpan" class="text-stone-800">0</span> <span class="text-xs sm:text-sm font-body text-stone-600 font-medium">horas</span>
@@ -210,14 +199,12 @@
           </div>
         </div>
 
-        <!-- Custom Anniversary badge -->
         <div class="flex items-center space-x-2 self-start sm:self-end">
           <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-200 shadow-sm">
             ✨ 4 Meses Inolvidables ✨
           </span>
         </div>
       </div>
-      <!-- Ground line matching reference -->
       <div class="w-full h-1 bg-stone-800/80 rounded-full mt-3"></div>
     </div>
 
@@ -239,11 +226,11 @@
             </span>
           </div>
           <p class="text-[11px] sm:text-xs text-stone-600 font-light mt-0.5">
-            Las fotos que subas se guardan solas aquí. Además puedes exportar el código para tu enlace de GitHub.
+            Cada fotografía representa un pedacito de nuestro amor, Abril & Jesús.
           </p>
         </div>
 
-        <!-- Back to Tree Button xd -->
+        <!-- Back to Tree Button -->
         <button id="closeAlbumBtn" class="flex items-center space-x-1.5 bg-rose-900/10 hover:bg-rose-900/20 active:scale-95 text-rose-900 font-medium text-xs sm:text-sm px-3.5 py-1.5 rounded-full border border-rose-300/60 transition-all">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -252,37 +239,15 @@
         </button>
       </div>
 
-      <!-- Action & Upload Bar -->
+      <!-- Action Sub-header -->
       <div class="flex flex-wrap items-center justify-between gap-2 mb-3 bg-amber-50/80 p-2.5 rounded-2xl border border-rose-200/60 text-xs">
-        <div class="flex flex-wrap items-center gap-2">
-          <!-- File Input -->
-          <label class="cursor-pointer inline-flex items-center space-x-1.5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-semibold px-3 py-2 rounded-xl shadow-sm transition-all active:scale-95">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            <span>Subir Fotos</span>
-            <input type="file" id="photoFileInput" accept="image/*" multiple class="hidden">
-          </label>
-
-          <!-- Add Photo by URL -->
-          <button id="addUrlPhotoBtn" class="inline-flex items-center space-x-1 bg-white hover:bg-rose-50 text-rose-800 font-medium px-3 py-2 rounded-xl border border-rose-300/80 shadow-sm transition-all active:scale-95">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-            </svg>
-            <span>Añadir por Link (URL)</span>
-          </button>
-
-          <!-- Export for GitHub button -->
-          <button id="exportCodeBtn" class="inline-flex items-center space-x-1 bg-amber-100 hover:bg-amber-200 text-amber-900 font-semibold px-3 py-2 rounded-xl border border-amber-300 shadow-sm transition-all active:scale-95" title="Exportar fotos para que Abril las vea en GitHub">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-            <span>Copiar para GitHub</span>
-          </button>
+        <div class="flex items-center gap-2 text-stone-700">
+          <span class="text-base">📸</span>
+          <span>Galería permanente de recuerdos compartidos.</span>
         </div>
         
         <span class="text-[11px] text-emerald-800 bg-emerald-100/70 border border-emerald-300/60 px-2 py-1 rounded-lg flex items-center gap-1">
-          <span>💾 Auto-guardado local activo</span>
+          <span>🔒 Alojado en GitHub Pages</span>
         </span>
       </div>
 
@@ -292,89 +257,6 @@
       </div>
     </div>
   </section>
-
-  <!-- GitHub Help Modal -->
-  <div id="gitHelpModal" class="fixed inset-0 z-60 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-5">
-    <div class="pergamino-card max-w-xl w-full max-h-[90vh] rounded-3xl p-5 sm:p-7 overflow-y-auto custom-scroll border border-pink-300 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-rose-900/10 pb-3 mb-3">
-        <h3 class="text-lg font-serif font-bold text-pink-950 flex items-center gap-2">
-          <span>🚀 Cómo publicarlo gratis en GitHub Pages</span>
-        </h3>
-        <button id="closeGitHelpBtn" class="text-stone-400 hover:text-stone-700 p-1">✕</button>
-      </div>
-
-      <div class="text-xs sm:text-sm text-stone-700 space-y-3 leading-relaxed">
-        <p class="font-medium text-pink-900">
-          Para que tu novia Abril pueda abrir el enlace en su teléfono y ver todo sin instalar nada:
-        </p>
-        
-        <ol class="list-decimal pl-5 space-y-2">
-          <li>
-            <strong>Guarda este archivo</strong> con el nombre exacto <code class="bg-rose-100 text-rose-800 px-1 py-0.5 rounded font-mono">index.html</code>.
-          </li>
-          <li>
-            <strong>¿Cómo hacer que Abril vea las fotos en su teléfono?</strong>
-            <p class="text-xs text-stone-600 mt-1">
-              Las fotos que subes desde tu teléfono solo se guardan en la memoria de tu dispositivo. Para que Abril las vea desde su propio teléfono, dale al botón <strong>"Copiar para GitHub"</strong> en el álbum; esto te copiará el código de tus fotos para pegarlo en este archivo, o puedes usar enlaces directos de imágenes (por ejemplo subiéndolas a tu repositorio o a un servidor como imgbb / imgur).
-            </p>
-          </li>
-          <li>
-            <strong>En GitHub:</strong> Crea un repositorio público nuevo (por ejemplo: <code class="bg-rose-100 text-rose-800 px-1 py-0.5 rounded font-mono">abril-y-jesus</code>).
-          </li>
-          <li>
-            Sube el archivo <code class="bg-rose-100 text-rose-800 px-1 py-0.5 rounded font-mono">index.html</code> al repositorio.
-          </li>
-          <li>
-            Ve a <strong>Settings (Configuración)</strong> > <strong>Pages</strong> en tu repositorio.
-          </li>
-          <li>
-            En <em>Build and deployment</em> > <em>Branch</em>, elige <strong>main</strong> (o master) y carpeta <strong>/ (root)</strong>, y dale a <strong>Save</strong>.
-          </li>
-          <li>
-            ¡Listo! En 1 minuto tendrás un enlace público como: <br>
-            <span class="font-mono text-xs text-rose-700 bg-rose-50 p-1 rounded block mt-1 break-all">
-              https://tu-usuario.github.io/abril-y-jesus/
-            </span>
-            ¡Ese es el enlace que le enviarás a Abril!
-          </li>
-        </ol>
-
-        <div class="bg-pink-50 p-3 rounded-xl border border-pink-200 mt-3 text-xs text-pink-900">
-          💡 <strong>Tip para el teléfono:</strong> La página está optimizada para que Abril pueda deslizar hacia abajo con total fluidez y ver la carta, el Jorge el Curioso y el contador sin recortarse.
-        </div>
-      </div>
-
-      <div class="mt-4 pt-3 border-t border-rose-900/10 text-right">
-        <button id="closeGitHelpBtnBottom" class="bg-rose-700 hover:bg-rose-600 text-white text-xs px-4 py-2 rounded-full font-medium transition-all">
-          ¡Entendido!
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Export Code Modal -->
-  <div id="exportModal" class="fixed inset-0 z-60 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-5">
-    <div class="pergamino-card max-w-xl w-full max-h-[90vh] rounded-3xl p-5 sm:p-7 overflow-y-auto custom-scroll border border-pink-300 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-rose-900/10 pb-3 mb-2">
-        <h3 class="text-base sm:text-lg font-serif font-bold text-pink-950">
-          📋 Fotos preparadas para GitHub
-        </h3>
-        <button id="closeExportModalBtn" class="text-stone-400 hover:text-stone-700 p-1">✕</button>
-      </div>
-      <p class="text-xs text-stone-600 mb-3">
-        Copia este bloque y reemplázalo en el código donde dice <code class="font-mono bg-rose-100 text-rose-800 px-1 py-0.5 rounded">let defaultInitialPhotos = [...]</code>. De esta forma, las fotos quedarán incrustadas permanentemente y Abril las verá al instante al entrar al enlace de GitHub.
-      </p>
-
-      <textarea id="exportTextarea" class="w-full h-44 p-2.5 font-mono text-xs bg-stone-900 text-pink-200 rounded-xl border border-stone-700 focus:outline-none focus:border-rose-400 select-all" readonly></textarea>
-
-      <div class="mt-3 flex items-center justify-between">
-        <span id="copiedNotice" class="text-xs text-emerald-700 font-semibold opacity-0 transition-opacity">¡Copiado con éxito!</span>
-        <button id="copyExportedTextBtn" class="bg-rose-700 hover:bg-rose-600 active:scale-95 text-white text-xs px-4 py-2 rounded-full font-medium transition-all shadow-md">
-          Copiar Código al Portapapeles
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- Photo Fullscreen Lightbox Modal -->
   <div id="lightboxModal" class="fixed inset-0 z-60 bg-black/90 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
@@ -411,7 +293,7 @@ Hoy cumplimos 4 maravillosos meses llenos de risas, complicidad y un amor que cr
 Gracias por iluminar mi vida con tu sonrisa y hacerme tan feliz. Por este 6 de octubre y por toda una vida a tu lado... ¡Te amo con todo mi ser!
 
 Con todo mi amor,
-Jesús ❤️`;
+Jesús ❤️️`;
 
     // Ambient background hearts
     const ambientContainer = document.getElementById('ambient-container');
@@ -889,7 +771,6 @@ Jesús ❤️`;
       ctx.resetTransform?.();
       ctx.scale(dpr, dpr);
 
-      // Positioning Curious George adapted for both mobile & desktop
       const isMobile = width < 500;
       georgePos.x = isMobile ? width * 0.68 : width * 0.65;
       georgePos.y = height - 12;
@@ -1037,7 +918,6 @@ Jesús ❤️`;
       createBurst(e.clientX, e.clientY);
     });
 
-    // Mobile touch interaction
     canvas.addEventListener('touchstart', (e) => {
       if (e.touches.length > 0) {
         const touch = e.touches[0];
@@ -1045,117 +925,41 @@ Jesús ❤️`;
       }
     }, { passive: true });
 
-    // Default initial sample photos (These can be replaced when exported for GitHub)
-    let defaultInitialPhotos = [
+    // =========================================================================
+    // 📸 GALERÍA DE FOTOS PERMANENTE PARA GITHUB PAGES (Abril & Jesús)
+    // Sube tus fotos a GitHub con nombres simples como foto1.jpg, foto2.jpg
+    // y colócalas aquí abajo. ¡Nunca se borrarán ni al recargar!
+    // =========================================================================
+    const albumPhotos = [
       {
-        id: 'sample-1',
+        id: 'foto-1',
         title: 'El comienzo de todo ✨',
         date: '6 de Junio',
-        src: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=700&q=80',
-        note: 'Donde empezó a latir este hermoso amor entre Jesús y Abril.'
+        src: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80',
+        note: 'Donde empezó a latir este hermoso amor entre Abril & Jesús.'
       },
       {
-        id: 'sample-2',
-        title: 'Tu sonrisa que me enamora 💕',
+        id: 'foto-2',
+        title: 'Tu hermosa sonrisa 💕',
         date: 'Recuerdo especial',
-        src: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=700&q=80',
-        note: 'Mi momento favorito siempre es a tu lado, Abril. — Jesús'
+        src: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80',
+        note: 'Mi momento favorito del día siempre es a tu lado. — Jesús'
       },
       {
-        id: 'sample-3',
-        title: 'Hacia nuestro 4º mes 🌹',
+        id: 'foto-3',
+        title: 'Nuestro 4º mes juntos 🌹',
         date: '6 de Octubre',
-        src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=700&q=80',
-        note: 'Celebrando cada segundo juntos, Jesús & Abril.'
+        src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80',
+        note: 'Celebrando cada segundo contigo, Abril.'
       }
     ];
-
-    let albumPhotos = [...defaultInitialPhotos];
-
-    // IndexedDB Implementation for permanent local persistence on reloads
-    const DB_NAME = 'AbrilJesusMemoriesDB';
-    const DB_VERSION = 1;
-    const STORE_NAME = 'photos';
-
-    function openDatabase() {
-      return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-        request.onupgradeneeded = (e) => {
-          const db = e.target.result;
-          if (!db.objectStoreNames.contains(STORE_NAME)) {
-            db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-          }
-        };
-        request.onsuccess = (e) => resolve(e.target.result);
-        request.onerror = (e) => reject(e.target.error);
-      });
-    }
-
-    async function loadPersistedPhotos() {
-      try {
-        const db = await openDatabase();
-        return new Promise((resolve) => {
-          const transaction = db.transaction(STORE_NAME, 'readonly');
-          const store = transaction.objectStore(STORE_NAME);
-          const request = store.getAll();
-          request.onsuccess = () => {
-            const data = request.result;
-            if (data && data.length > 0) {
-              albumPhotos = data;
-            }
-            resolve(albumPhotos);
-          };
-          request.onerror = () => resolve(albumPhotos);
-        });
-      } catch (err) {
-        console.warn('IndexedDB not supported or accessible, using in-memory default:', err);
-        return albumPhotos;
-      }
-    }
-
-    async function savePhotoToDB(photo) {
-      try {
-        const db = await openDatabase();
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        const store = transaction.objectStore(STORE_NAME);
-        store.put(photo);
-      } catch (err) {
-        console.error('Error saving photo to IndexedDB:', err);
-      }
-    }
-
-    async function removePhotoFromDB(id) {
-      try {
-        const db = await openDatabase();
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        const store = transaction.objectStore(STORE_NAME);
-        store.delete(id);
-      } catch (err) {
-        console.error('Error removing photo from IndexedDB:', err);
-      }
-    }
 
     // Modal & Album DOM elements
     const albumSection = document.getElementById('albumSection');
     const albumCard = document.getElementById('albumCard');
     const openAlbumBtn = document.getElementById('openAlbumBtn');
     const closeAlbumBtn = document.getElementById('closeAlbumBtn');
-    const photoFileInput = document.getElementById('photoFileInput');
-    const addUrlPhotoBtn = document.getElementById('addUrlPhotoBtn');
-    const exportCodeBtn = document.getElementById('exportCodeBtn');
     const photosGrid = document.getElementById('photosGrid');
-
-    // GitHub & Export modal elements
-    const gitHelpModal = document.getElementById('gitHelpModal');
-    const openGitHelpBtn = document.getElementById('openGitHelpBtn');
-    const closeGitHelpBtn = document.getElementById('closeGitHelpBtn');
-    const closeGitHelpBtnBottom = document.getElementById('closeGitHelpBtnBottom');
-
-    const exportModal = document.getElementById('exportModal');
-    const closeExportModalBtn = document.getElementById('closeExportModalBtn');
-    const exportTextarea = document.getElementById('exportTextarea');
-    const copyExportedTextBtn = document.getElementById('copyExportedTextBtn');
-    const copiedNotice = document.getElementById('copiedNotice');
 
     // Lightbox modal elements
     const lightboxModal = document.getElementById('lightboxModal');
@@ -1166,17 +970,6 @@ Jesús ❤️`;
     function renderPhotos() {
       if (!photosGrid) return;
       photosGrid.innerHTML = '';
-
-      if (albumPhotos.length === 0) {
-        photosGrid.innerHTML = `
-          <div class="col-span-full py-10 text-center text-stone-500">
-            <span class="text-3xl block mb-2">📸</span>
-            <p class="font-medium text-stone-700">Aún no hay fotos añadidas.</p>
-            <p class="text-xs text-stone-400 mt-1">Presiona "Subir Fotos" o "Añadir por Link" para agregar sus recuerdos.</p>
-          </div>
-        `;
-        return;
-      }
 
       albumPhotos.forEach((photo, index) => {
         const card = document.createElement('div');
@@ -1190,14 +983,7 @@ Jesús ❤️`;
           </div>
           <div class="mt-2.5 flex flex-col flex-grow justify-between">
             <div>
-              <div class="flex items-center justify-between gap-1">
-                <input type="text" value="${photo.title}" class="text-xs sm:text-sm font-semibold text-rose-950 bg-transparent border-b border-transparent hover:border-rose-300 focus:border-rose-500 focus:outline-none w-full photo-title-input" data-index="${index}">
-                <button class="delete-photo-btn text-stone-400 hover:text-red-500 p-1 transition-colors" data-index="${index}" title="Eliminar foto">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                  </svg>
-                </button>
-              </div>
+              <h3 class="text-xs sm:text-sm font-semibold text-rose-950">${photo.title}</h3>
               <p class="text-[11px] text-stone-500 mt-1 italic">${photo.note || 'Un recuerdo lleno de amor'}</p>
             </div>
             <span class="text-[10px] text-rose-700/80 font-medium self-end mt-2 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200/50">
@@ -1208,34 +994,10 @@ Jesús ❤️`;
         photosGrid.appendChild(card);
       });
 
-      // Events
       document.querySelectorAll('.photo-thumbnail').forEach(el => {
         el.addEventListener('click', () => {
           const idx = parseInt(el.getAttribute('data-index'), 10);
           openLightbox(idx);
-        });
-      });
-
-      document.querySelectorAll('.photo-title-input').forEach(input => {
-        input.addEventListener('change', () => {
-          const idx = parseInt(input.getAttribute('data-index'), 10);
-          if (albumPhotos[idx]) {
-            albumPhotos[idx].title = input.value;
-            savePhotoToDB(albumPhotos[idx]);
-          }
-        });
-      });
-
-      document.querySelectorAll('.delete-photo-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const idx = parseInt(btn.getAttribute('data-index'), 10);
-          const photoToRemove = albumPhotos[idx];
-          if (photoToRemove) {
-            removePhotoFromDB(photoToRemove.id);
-            albumPhotos.splice(idx, 1);
-            renderPhotos();
-          }
         });
       });
     }
@@ -1257,108 +1019,6 @@ Jesús ❤️`;
 
     openAlbumBtn.addEventListener('click', openAlbum);
     closeAlbumBtn.addEventListener('click', closeAlbum);
-
-    // Image compression before storage to keep IndexedDB and GitHub size optimal
-    function compressImage(file, maxWidth = 1000, quality = 0.75) {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (event) => {
-          const img = new Image();
-          img.src = event.target.result;
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            let w = img.width;
-            let h = img.height;
-            if (w > maxWidth) {
-              h = (maxWidth / w) * h;
-              w = maxWidth;
-            }
-            canvas.width = w;
-            canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, w, h);
-            resolve(canvas.toDataURL('image/jpeg', quality));
-          };
-        };
-      });
-    }
-
-    // Photo file input handler
-    photoFileInput.addEventListener('change', async (e) => {
-      const files = Array.from(e.target.files);
-      if (!files.length) return;
-
-      for (const file of files) {
-        if (!file.type.startsWith('image/')) continue;
-        const compressedBase64 = await compressImage(file);
-        const newPhoto = {
-          id: 'photo-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
-          title: file.name.replace(/\.[^/.]+$/, "").substring(0, 24) || 'Recuerdo con Abril',
-          date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
-          src: compressedBase64,
-          note: 'Momento inolvidable de Abril & Jesús ❤️'
-        };
-        albumPhotos.unshift(newPhoto);
-        await savePhotoToDB(newPhoto);
-      }
-
-      photoFileInput.value = '';
-      renderPhotos();
-    });
-
-    // Add Photo by URL option (ideal for linking online photos or repo relative paths)
-    addUrlPhotoBtn.addEventListener('click', () => {
-      const url = prompt('Ingresa el enlace directo de la foto (o ruta como ./fotos/foto1.jpg):');
-      if (url && url.trim().length > 0) {
-        const title = prompt('Título o descripción de la foto:', 'Recuerdo especial') || 'Con Abril';
-        const newPhoto = {
-          id: 'photo-' + Date.now(),
-          title: title.substring(0, 28),
-          date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
-          src: url.trim(),
-          note: 'Jesús & Abril ❤️'
-        };
-        albumPhotos.unshift(newPhoto);
-        savePhotoToDB(newPhoto);
-        renderPhotos();
-      }
-    });
-
-    // Export code modal for GitHub Pages
-    exportCodeBtn.addEventListener('click', () => {
-      const codeSnippet = `let defaultInitialPhotos = ${JSON.stringify(albumPhotos, null, 2)};`;
-      exportTextarea.value = codeSnippet;
-      exportModal.classList.remove('hidden');
-      exportModal.classList.add('flex');
-    });
-
-    closeExportModalBtn.addEventListener('click', () => {
-      exportModal.classList.add('hidden');
-      exportModal.classList.remove('flex');
-    });
-
-    copyExportedTextBtn.addEventListener('click', () => {
-      exportTextarea.select();
-      document.execCommand('copy');
-      copiedNotice.classList.remove('opacity-0');
-      setTimeout(() => {
-        copiedNotice.classList.add('opacity-0');
-      }, 2500);
-    });
-
-    // Git Help modal handlers
-    openGitHelpBtn.addEventListener('click', () => {
-      gitHelpModal.classList.remove('hidden');
-      gitHelpModal.classList.add('flex');
-    });
-
-    const closeGitHelp = () => {
-      gitHelpModal.classList.add('hidden');
-      gitHelpModal.classList.remove('flex');
-    };
-    closeGitHelpBtn.addEventListener('click', closeGitHelp);
-    closeGitHelpBtnBottom.addEventListener('click', closeGitHelp);
 
     // Lightbox modal handlers
     function openLightbox(idx) {
@@ -1398,8 +1058,7 @@ Jesús ❤️`;
     });
 
     // Start everything on window load
-    window.onload = async function () {
-      await loadPersistedPhotos();
+    window.onload = function () {
       initTree();
       animate();
       startTypewriter();
